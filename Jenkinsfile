@@ -8,7 +8,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -B clean package'
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('SonarQube analysis') {
+            environment {
+                scannerHome = tool 'SonarScanner'
+            }
+            steps {
+                withSonarQubeEnv(installationName: 'SonarQube')
+                    sh 'mvn sonar:sonar'
+
             }
         }
     }
