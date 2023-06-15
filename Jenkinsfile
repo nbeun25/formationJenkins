@@ -13,10 +13,10 @@ pipeline {
         }
         stage('SonarQube analysis') {
             environment {
-                scannerHome = tool 'SonarScanner'
+                scannerHome = tool 'SonarQubeScanner'
             }
             steps {
-                withSonarQubeEnv(installationName: 'SonarQubeMaven')
+                withSonarQubeEnv(installationName: 'SonarQube')
                     sh 'mvn sonar:sonar'
 
             }
